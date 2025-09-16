@@ -1,0 +1,13 @@
+{
+  "name": "mini-jober-bot",
+  "version": "1.0.0",
+  "description": "Admin bot for Mini Jober",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "firebase-admin": "^11.0.0",
+    "node-telegram-bot-api": "^0.58.0"
+  }
+}
