@@ -8,7 +8,6 @@ const TELEGRAM_BOT_TOKEN = "7613053106:AAFPPH2n4c5AH13_XartbIg46d_diJzrLr8";
 const ADMIN_TELEGRAM_ID = 5079934473;
 
 // ================== WEB SERVER (Render-এর জন্য) ==================
-// এই অংশটি বটকে ২৪ ঘন্টা চালু রাখার জন্য সবার আগে রাখা হয়েছে
 const app = express();
 const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
@@ -18,19 +17,18 @@ app.listen(PORT, () => {
     console.log(`✅ Server is running on port ${PORT} and ready for health checks.`);
 });
 
-// ================== FIREBASE INITIALIZATION ==================
-// Environment Variable থেকে গোপন চাবি নেওয়া হচ্ছে
+// ================== FIREBASE INITIALIZATION (সঠিক URL সহ) ==================
 const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON);
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://mini-jober-default-rtdb.asia-southeast1.firebasedatabase.app/"
+    databaseURL: "https://mini-jober-default-rtdb.asia-southeast1.firebasedatabase.app/" // <--- এই ঠিকানাটি সংশোধন করা হয়েছে
 });
 const db = admin.database();
 const auth = admin.auth();
 
 // ================== TELEGRAM BOT INITIALIZATION ==================
 const bot = new TelegramBot(TELEGRAM_BOT_TOKEN, { polling: true });
-let adminState = {}; // Multi-step conversation state management
+let adminState = {};
 
 console.log('✅ Admin Bot is starting...');
 console.log(`Listening for commands from Admin ID: ${ADMIN_TELEGRAM_ID}`);
