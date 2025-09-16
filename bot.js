@@ -11,7 +11,7 @@ const ADMIN_TELEGRAM_ID = 5079934473;
 
 // Firebase Admin SDK Configuration
 // ডাউনলোড করা serviceAccountKey.json ফাইলটি এই bot.js ফাইলের পাশে রাখুন
-const serviceAccount = require('./serviceAccountKey.json'); 
+const serviceAccount = JSON.parse(process.env.GOOGLE_CREDENTIALS_JSON); 
 const FIREBASE_DATABASE_URL = "https://mini-jober-default-rtdb.asia-southeast1.firebasedatabase.app/";
 // =======================================================================
 
@@ -351,4 +351,16 @@ bot.on('callback_query', async (query) => {
             bot.deleteMessage(chatId, query.message.message_id);
         }
     }
+});
+// ============== WEB SERVER (to keep the bot alive on Render) ==============
+const express = require('express');
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+app.get('/', (req, res) => {
+    res.send('Admin Bot is running perfectly!');
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
